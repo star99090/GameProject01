@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class cameraMove : MonoBehaviour
 {
-    public float rotationSpeed = 1;
+    public float rotationSpeed = 1.5f;
     public GameObject Player;
     Transform Target;
     float X, Y;
@@ -23,7 +23,7 @@ public class cameraMove : MonoBehaviour
     {
         X += Input.GetAxis("Horizontal") * rotationSpeed;
         Y -= Input.GetAxis("Vertical") * rotationSpeed;
-        Y = Mathf.Clamp(Y, -45, 70);
+        Y = Mathf.Clamp(Y, -40, 65);
 
         transform.LookAt(Target);
 

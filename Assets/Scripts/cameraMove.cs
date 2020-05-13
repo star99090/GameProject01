@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class cameraMove : MonoBehaviour
 {
-    GameObject target;
-    float moveSpeed;
-    Vector3 targetPosition;
-
-    void Awake()
+    public float rotationSpeed = 1;
+    public GameObject Player;
+    Transform Target;
+    float X, Y;
+    
+    void Aware()
     {
-        target = GetComponent<GameObject>();
+        Target = Player.transform;
     }
-    void Update()
+
+    void LateUpdate() // Update() 이후에 실행되는 업데이트, 주로 UI나 카메라 이동에 대한 것은 여기서 이루어짐
     {
-        targetPosition.Set(target.transform.position.x, target.transform.position.y, this.transform.position.z);
-        this.transform.position = Vector3.Lerp(this.transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        cameraController();
+    }
+
+    void cameraController()
+    {
+        X += Input.GetAxis("Horizontal") * rotationSpeed;
+        Y -= Input.GetAxis("Vertical") * rotationSpeed;
+        Y = Mathf.Clamp(Y, -45, 70);
+
+        transform.LookAt(Target);
+
+        Target.rotation = Quaternion.Euler(Y, X, 0.0f);
     }
 }

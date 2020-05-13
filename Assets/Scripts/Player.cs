@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float charSpeed;
     bool isJump;
 
+
     void Awake()
     {
         isJump = false;
@@ -22,8 +23,14 @@ public class Player : MonoBehaviour
             anim.SetTrigger("jumpTrigger");
             isJump = true;
             rigid.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            rigid.velocity = new Vector3(0, 0, 0);
         }
     }
+    
+    /*void ReturnVelocity()
+    {
+        
+    }*/
 
     void OnCollisionEnter(Collision collision) // 충돌 시 생기는 이벤트
     {
@@ -43,9 +50,12 @@ public class Player : MonoBehaviour
             anim.SetBool("isRunning", false);
         else
         {
-            rigid.AddForce(new Vector3(h * charSpeed, 0, v * charSpeed), ForceMode.Impulse);
+            //지금까지 이동을 rigid.AddForce로 했었지만, 캐릭터가 바라보는 시점으로 이동하기 위해서는
+            //캐릭터의 모델 좌표 기준으로 이동해야하기때문에 Translate()로 하여금 Space.Self를 부여한다.
+            transform.Translate(new Vector3(h, 0, v) * charSpeed * Time.deltaTime, Space.Self);
             anim.SetBool("isRunning", true);
         }
 
+        transform.Rotate(0, h * 2, 0);
     }
 }

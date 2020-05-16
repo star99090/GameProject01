@@ -81,6 +81,7 @@
     <Compile Include="Assets\AssetStore\unity-chan!\Unity-chan! Model\Scripts\SpringManager.cs" />
     <Compile Include="Assets\AssetStore\unity-chan!\Unity-chan! Model\Scripts\ThirdPersonCamera.cs" />
     <Compile Include="Assets\AssetStore\unity-chan!\Unity-chan! Model\SplashScreen\Scripts\SplashScreen.cs" />
+    <Compile Include="Assets\Scripts\Monster.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\cameraMove.cs" />
     <None Include="Assets\AssetStore\unity-chan!\Unity-chan! Model\Art\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />

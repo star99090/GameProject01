@@ -6,10 +6,10 @@ public class Player : MonoBehaviour
 {
     Animator anim;
     Rigidbody rigid;
+
     public float charSpeed;
     bool isJump;
-
-
+    
     void Awake()
     {
         isJump = false;
@@ -23,18 +23,12 @@ public class Player : MonoBehaviour
             anim.SetTrigger("jumpTrigger");
             isJump = true;
             rigid.AddForce(Vector3.up * 5, ForceMode.Impulse);
-            rigid.velocity = new Vector3(0, 0, 0);
         }
     }
-    
-    /*void ReturnVelocity()
-    {
-        
-    }*/
 
     void OnCollisionEnter(Collision collision) // 충돌 시 생기는 이벤트
     {
-        if (collision.gameObject.name == "Terrain") // 만약 이 스크립트가 적용된 오브젝트가 Terrain라는 오브젝트를 만나면 진행
+        if (collision.gameObject.name == "Field")
             isJump = false;
     }
 
@@ -62,6 +56,5 @@ public class Player : MonoBehaviour
             }
         anim.SetBool("isRunning", true);
         }
-        
     }
 }

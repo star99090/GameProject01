@@ -18,7 +18,7 @@ public class cameraMove : MonoBehaviour
 
         transform.LookAt(Player);
 
-        Player.rotation = Quaternion.Euler(0.0f, h, 0.0f);
+        Player.rotation = Quaternion.Euler(0, h, 0);
         transform.Rotate(Vector3.left * 20);
     }
 }

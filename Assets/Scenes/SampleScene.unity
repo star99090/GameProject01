@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.8
     agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentSlope: 30.9
+    agentClimb: 0.8
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.26666668
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -487,7 +487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 38.348896
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4408297863206454, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
       propertyPath: m_LocalRotation.x
@@ -838,8 +838,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900788137}
-  m_LocalRotation: {x: -0.21643962, y: 0, z: 0, w: 0.976296}
-  m_LocalPosition: {x: 8.24, y: -1.26, z: 3.83}
+  m_LocalRotation: {x: 0.20226592, y: 0.76770574, z: 0.28980076, w: -0.534539}
+  m_LocalPosition: {x: 72.19318, y: -37.889874, z: 44.5258}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -872,7 +872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc573e68b36153a498af7626329563a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charSpeed: 1
+  charSpeed: 3.5
 --- !u!54 &924636300
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1052,7 +1052,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1076,7 +1076,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe0e2d154ffc214f9f79b2776a6c44b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monSpeed: 1
 --- !u!1 &1543344690
 GameObject:
   m_ObjectHideFlags: 0

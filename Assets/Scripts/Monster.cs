@@ -11,6 +11,7 @@ public class Monster : MonoBehaviour
         Trace,
         Attack,
         Return,
+        Damaged,
         Die
     }
 
@@ -18,6 +19,13 @@ public class Monster : MonoBehaviour
     private NavMeshAgent navAgent;
     private NavMeshPath path;
     private Animator anim;
+    private AudioSource audioSource;
+
+    public AudioClip audioAttack;
+    public AudioClip audioDamaged;
+    public AudioClip audioIdle;
+    public AudioClip audioDie;
+
 
     public float range; // 공격범위, 사정거리
     public float stoppingDist; // 멈추는 거리, nav와 동일하게 설정하기
@@ -35,28 +43,36 @@ public class Monster : MonoBehaviour
         switch (state)
         {
             case mState.Idle:
+                PlaySound("Idle");
                 MonsterIdle();
                 break;
             case mState.Trace:
                 TracePlayer();
                 break;
             case mState.Attack:
+                PlaySound("Attack");
                 AttackPlayer();
                 break;
             case mState.Return:
                 Return();
                 break;
+            case mState.Damaged:
+                PlaySound("Damaged");
+                MonsterDamaged();
+                break;
             case mState.Die:
+                PlaySound("Die");
                 MonsterDie();
                 break;
         }
     }
-    void Start()
+    void Awake()
     {
         originPos = transform.position;
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         navAgent = this.gameObject.GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         EnterState(currentState);
     }
@@ -117,9 +133,27 @@ public class Monster : MonoBehaviour
         navAgent.SetDestination(originPos);
         anim.SetBool("isRunning", true);
     }
+    void MonsterDamaged()
+    {
+        currentState = mState.Damaged;
+    }
     void MonsterDie()
     {
         currentState = mState.Die;
-
+    }
+    void PlaySound(string action)
+    {
+        switch (action)
+        {
+            case "Attack":
+                audioSource.clip = audioAttack; break;
+            case "Damaged":
+                audioSource.clip = audioDamaged; break;
+            case "Idle":
+                audioSource.clip = audioIdle; break;
+            case "Die":
+                audioSource.clip = audioDie; break;
+        }
+        audioSource.Play();
     }
 }

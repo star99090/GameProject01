@@ -5,16 +5,6 @@ using UnityEngine.AI;
 
 public class Monster : MonoBehaviour
 {
-    public enum mState
-    {
-        Idle,
-        Trace,
-        Attack,
-        Return,
-        Damaged,
-        Die
-    }
-
     private Transform player;
     private NavMeshAgent navAgent;
     private NavMeshPath path;
@@ -32,40 +22,11 @@ public class Monster : MonoBehaviour
     public float traceDist; // 추적 범위
 
     Vector3 originPos;
-    mState currentState = mState.Idle;
 
     bool isDead = false;
     float MonToPlayerDist;
     float OriginDist;
 
-    void EnterState(mState state)
-    {
-        switch (state)
-        {
-            case mState.Idle:
-                PlaySound("Idle");
-                MonsterIdle();
-                break;
-            case mState.Trace:
-                TracePlayer();
-                break;
-            case mState.Attack:
-                PlaySound("Attack");
-                AttackPlayer();
-                break;
-            case mState.Return:
-                Return();
-                break;
-            case mState.Damaged:
-                PlaySound("Damaged");
-                MonsterDamaged();
-                break;
-            case mState.Die:
-                PlaySound("Die");
-                MonsterDie();
-                break;
-        }
-    }
     void Awake()
     {
         originPos = transform.position;
@@ -73,8 +34,6 @@ public class Monster : MonoBehaviour
         navAgent = this.gameObject.GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-
-        EnterState(currentState);
     }
 
     void Update()
@@ -83,35 +42,36 @@ public class Monster : MonoBehaviour
         {
             //몬스터와 플레이어 사이의 거리
             MonToPlayerDist = Vector3.Distance(player.position, transform.position);
+
+            //몬스터가 처음에 있던 자리와의 거리
             OriginDist = Vector3.Distance(transform.position, originPos);
 
-            if (currentState == mState.Return && OriginDist <= 0.1f)
+            if (MonToPlayerDist > traceDist && OriginDist <= 0.1f)
             {
-                EnterState(mState.Idle);
+                MonsterIdle();
+                PlaySound("Idle");
             }
-            if (OriginDist > traceDist)
+            else if (OriginDist > traceDist)
             {
-                EnterState(mState.Return);
+                MonsterReturn();
             }
-            if (MonToPlayerDist <= traceDist && MonToPlayerDist > stoppingDist)
+            else if (MonToPlayerDist <= traceDist && MonToPlayerDist > stoppingDist)
             {
-                EnterState(mState.Trace);
+                TracePlayer();
             }
             else if (MonToPlayerDist <= stoppingDist)
             {
-                EnterState(mState.Attack);
+                AttackPlayer();
             }
         }
     }
     void MonsterIdle()
     {
-        currentState = mState.Idle;
         navAgent.isStopped = true;
         anim.SetBool("isRunning", false);
     }
     void TracePlayer()
     {
-        currentState = mState.Trace;
         anim.SetBool("isAttack", false);
         navAgent.isStopped = false;
         navAgent.SetDestination(player.position);
@@ -119,15 +79,14 @@ public class Monster : MonoBehaviour
     }
     void AttackPlayer()
     {
-        currentState = mState.Attack;
         anim.SetBool("isRunning", false);
         navAgent.isStopped = true;
         transform.LookAt(player);
         anim.SetBool("isAttack", true);
+        PlaySound("Attack");
     }
-    void Return()
+    void MonsterReturn()
     {
-        currentState = mState.Return;
         anim.SetBool("isAttack", false);
         navAgent.isStopped = false;
         navAgent.SetDestination(originPos);
@@ -135,13 +94,16 @@ public class Monster : MonoBehaviour
     }
     void MonsterDamaged()
     {
-        currentState = mState.Damaged;
+        anim.SetTrigger("Damaged");
+        PlaySound("Damaged");
     }
     void MonsterDie()
     {
-        currentState = mState.Die;
+        isDead = true;
+        anim.SetBool("isDead", true);
+        PlaySound("Die");
     }
-    void PlaySound(string action)
+    public void PlaySound(string action)
     {
         switch (action)
         {

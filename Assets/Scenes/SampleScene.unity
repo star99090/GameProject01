@@ -427,8 +427,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668897009}
-  m_LocalRotation: {x: 0.17364798, y: 0.0015530909, z: 0.00027384618, w: -0.98480654}
-  m_LocalPosition: {x: 43.707886, y: -1.51, z: 37.80001}
+  m_LocalRotation: {x: 0.105451204, y: 0.78242606, z: 0.13796285, w: -0.5980434}
+  m_LocalPosition: {x: 46.112366, y: -1.51, z: 40.95612}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -777,7 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5edbb80d036f1524ea3f5eff1eb3ec4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 4
+  rotationSpeed: 3.75
   Player: {fileID: 2042691104}
 --- !u!1 &988096491 stripped
 GameObject:
@@ -853,7 +853,6 @@ MonoBehaviour:
   audioDamaged: {fileID: 8300000, guid: 47c130423d705a545823fc58d4e53706, type: 3}
   audioIdle: {fileID: 8300000, guid: 05edc7f615cba614f8ea3c7c6d68b541, type: 3}
   audioDie: {fileID: 8300000, guid: 1c2ffbcb52415c74cae9ef0c52607cae, type: 3}
-  player: {fileID: 2042691107}
   stoppingDist: 3
   traceDist: 14
   hp: 100
@@ -1249,22 +1248,22 @@ PrefabInstance:
     - target: {fileID: 8422892626600249584, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8422892626600249584, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.79353756
       objectReference: {fileID: 0}
     - target: {fileID: 8422892626600249584, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8422892626600249584, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.6085214
       objectReference: {fileID: 0}
     - target: {fileID: 8422892626600249584, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
         type: 3}
@@ -1279,7 +1278,7 @@ PrefabInstance:
     - target: {fileID: 8422892626600249584, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -105.035
       objectReference: {fileID: 0}
     - target: {fileID: 8422892626600249584, guid: 214e08cd5e5d74c458e2a81b7ec2c84c,
         type: 3}

@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     Rigidbody rigid;
 
     public float charSpeed;
+    public int power;
     bool isJump;
     
     void Awake()

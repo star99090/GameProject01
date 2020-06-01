@@ -119,7 +119,7 @@ public class Monster : MonoBehaviour
                 break;
             case "Attack":
                 audioSource.clip = audioAttack;
-                Invoke("PlaySoundRepeat", 2.2f);
+                Invoke("PlaySoundRepeat", 2.9f);
                 break;
             case "Idle":
                 audioSource.clip = audioIdle; break;

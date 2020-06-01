@@ -49,6 +49,7 @@ public class Monster : MonoBehaviour
         {
             if (nav.isStopped == false)
             {
+                nav.speed = 1.5f;
                 CancelInvoke();
                 monState = "Idle";
                 anim.SetBool("isAttack", false);
@@ -84,6 +85,7 @@ public class Monster : MonoBehaviour
             }
             if (nav.isStopped == true)
             {
+                nav.speed = 3f;
                 monState = "Running";
                 anim.SetBool("isAttack", false);
                 nav.isStopped = false;

@@ -21,10 +21,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && !isJump){
+        if (Input.GetButtonDown("Jump") && !isJump)
+        {
             anim.SetTrigger("jumpTrigger");
             isJump = true;
             rigid.AddForce(Vector3.up * 5, ForceMode.Impulse);
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 

@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class Monster : MonoBehaviour
 {
-    Transform player;
     NavMeshAgent nav;
     Animator anim;
     AudioSource audioSource;
 
+    public Transform player;
     public AudioClip audioAttack;
     public AudioClip audioDamaged;
     public AudioClip audioIdle;
@@ -32,7 +32,6 @@ public class Monster : MonoBehaviour
     {
         isReturn = false;
         originPos = transform.position;
-        player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         nav = this.gameObject.GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
@@ -102,14 +101,11 @@ public class Monster : MonoBehaviour
                 monState = "Attack";
                 anim.SetBool("isRunning", false);
                 nav.isStopped = true;
-                transform.LookAt(player);
                 anim.SetBool("isAttack", true);
                 PlaySound(monState);
+                FocusPlayer();
             }
-            else
-            {
-                transform.LookAt(player);
-            }
+            transform.LookAt(null);
         }
     }
 
@@ -129,6 +125,12 @@ public class Monster : MonoBehaviour
                 audioSource.clip = audioIdle; break;
         }
         audioSource.Play();
+    }
+
+    void FocusPlayer()
+    {
+        Invoke("FocusPlayer", 2.2f);
+        transform.LookAt(player);
     }
 
     void PlaySoundRepeat()

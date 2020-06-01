@@ -27,9 +27,9 @@ public class Player : MonoBehaviour
             isJump = true;
             rigid.AddForce(Vector3.up * 5, ForceMode.Impulse);
         }
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            anim.SetTrigger("attackTrigger");
         }
     }
 

@@ -14,6 +14,7 @@ public class Monster : MonoBehaviour
     public AudioClip audioDamaged;
     public AudioClip audioIdle;
     public AudioClip audioDie;
+    public AudioClip audioRunning;
 
 
     //public float range; // 공격범위, 사정거리
@@ -25,67 +26,111 @@ public class Monster : MonoBehaviour
     string monState = "beforeIdle";
     float MonToPlayerDist;
     float OriginDist;
+    bool isReturn;
 
     void Awake()
     {
+        isReturn = false;
         originPos = transform.position;
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         nav = this.gameObject.GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        //몬스터가 처음에 있던 자리와의 거리
+        OriginDist = Vector3.Distance(originPos, transform.position);
     }
     
     void Update()
     {
         //몬스터와 플레이어 사이의 거리
-        MonToPlayerDist = Vector3.Distance(player.position, transform.position);
-        //몬스터가 처음에 있던 자리와의 거리
-        OriginDist = Vector3.Distance(originPos, transform.position);
+        MonToPlayerDist = Vector3.Distance(transform.position, player.position);
 
-        if (MonToPlayerDist > traceDist && OriginDist <= 0.1f)// 추적범위 밖, 원래거리와 가까울때 IDLE
+        if (MonToPlayerDist > traceDist && OriginDist == Vector3.Distance(originPos, transform.position))// 추적범위 밖, 원래거리와 가까울때 Idle
         {
-            monState = "Idle";
-            anim.SetBool("isAttack", false);
-            nav.isStopped = true;
-            anim.SetBool("isRunning", false);
+            if (nav.isStopped == false)
+            {
+                CancelInvoke();
+                monState = "Idle";
+                anim.SetBool("isAttack", false);
+                nav.isStopped = true;
+                anim.SetBool("isRunning", false);
+                isReturn = false;
+            }
         }
         else if (MonToPlayerDist <= traceDist && MonToPlayerDist > stoppingDist) // Trace
         {
-            monState = "Running";
-            anim.SetBool("isAttack", false);
-            nav.isStopped = false;
-            nav.SetDestination(player.position);
-            anim.SetBool("isRunning", true);
+            if (nav.isStopped == true)
+            {
+                CancelInvoke();
+                monState = "Running";
+                anim.SetBool("isAttack", false);
+                nav.isStopped = false;
+                nav.SetDestination(player.position);
+                anim.SetBool("isRunning", true);
+                PlaySound(monState);
+            }
+            else
+            {
+                nav.SetDestination(player.position);
+            }
         }
         else if (OriginDist > traceDist || MonToPlayerDist > 14f) // Return
         {
-            monState = "Running";
-            anim.SetBool("isAttack", false);
-            nav.SetDestination(originPos);
-            nav.isStopped = false;
-            anim.SetBool("isRunning", true);
+            if (!isReturn)
+            {
+                CancelInvoke();
+                nav.isStopped = true;
+                isReturn = true;
+            }
+            if (nav.isStopped == true)
+            {
+                monState = "Running";
+                anim.SetBool("isAttack", false);
+                nav.isStopped = false;
+                nav.SetDestination(originPos);
+                anim.SetBool("isRunning", true);
+                PlaySound(monState);
+            }
         }
         else if (MonToPlayerDist <= stoppingDist) // Attack
         {
-            monState = "Attack";
-            anim.SetBool("isRunning", false);
-            nav.isStopped = true;
-            transform.LookAt(player);
-            anim.SetBool("isAttack", true);
+            if (nav.isStopped == false)
+            {
+                CancelInvoke();
+                monState = "Attack";
+                anim.SetBool("isRunning", false);
+                nav.isStopped = true;
+                transform.LookAt(player);
+                anim.SetBool("isAttack", true);
+                PlaySound(monState);
+            }
+            else
+            {
+                transform.LookAt(player);
+            }
         }
     }
+
     public void PlaySound(string monState)
     {
         switch (monState)
         {
+            case "Running":
+                audioSource.clip = audioRunning;
+                Invoke("PlaySoundRepeat", 0.62f);
+                break;
             case "Attack":
-                audioSource.clip = audioAttack; break;
+                audioSource.clip = audioAttack;
+                Invoke("PlaySoundRepeat", 2.2f);
+                break;
             case "Idle":
                 audioSource.clip = audioIdle; break;
-            default:
-                break;
         }
-        if(audioSource.clip != null)
-            audioSource.Play();
+        audioSource.Play();
+    }
+
+    void PlaySoundRepeat()
+    {
+         PlaySound(monState);
     }
 }

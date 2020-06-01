@@ -7,8 +7,9 @@ public class Player : MonoBehaviour
     Animator anim;
     Rigidbody rigid;
 
-    public float charSpeed;
-    public int power;
+    public Monster monster;
+    public float Speed;
+    public int Power;
     bool isJump;
     
     void Awake()
@@ -32,7 +33,15 @@ public class Player : MonoBehaviour
         if (collision.gameObject.name == "Field")
             isJump = false;
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "EnterZone")
+        {
+            monster.PlaySound("Idle");
+            other.gameObject.SetActive(false);
+        }
 
+    }
     void FixedUpdate()
     {
         float h = Input.GetAxis("Horizontal");
@@ -49,11 +58,11 @@ public class Player : MonoBehaviour
             //캐릭터의 모델 좌표 기준으로 이동해야하기때문에 Translate()로 하여금 Space.Self를 부여한다.
             if (v <= 0.0f)
             {
-                transform.Translate(new Vector3(0, 0, v * 0.4f) * charSpeed * Time.deltaTime, Space.Self);
+                transform.Translate(new Vector3(0, 0, v * 0.4f) * Speed * Time.deltaTime, Space.Self);
             }
             else
             {
-                transform.Translate(new Vector3(h * 0.5f, 0, v) * charSpeed * Time.deltaTime, Space.Self);
+                transform.Translate(new Vector3(h * 0.5f, 0, v) * Speed * Time.deltaTime, Space.Self);
             }
         anim.SetBool("isRunning", true);
         }

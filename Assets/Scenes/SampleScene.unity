@@ -853,6 +853,7 @@ MonoBehaviour:
   audioDamaged: {fileID: 8300000, guid: 47c130423d705a545823fc58d4e53706, type: 3}
   audioIdle: {fileID: 8300000, guid: 05edc7f615cba614f8ea3c7c6d68b541, type: 3}
   audioDie: {fileID: 8300000, guid: 1c2ffbcb52415c74cae9ef0c52607cae, type: 3}
+  audioRunning: {fileID: 8300000, guid: a02cf6eb45ec7b246b003acea5371e0c, type: 3}
   stoppingDist: 3
   traceDist: 14
   hp: 100
@@ -1030,6 +1031,7 @@ Transform:
   - {fileID: 1662325901}
   - {fileID: 319393357}
   - {fileID: 793874835}
+  - {fileID: 1616547201}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1061,8 +1063,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1616547201}
+  - component: {fileID: 1616547202}
   m_Layer: 0
-  m_Name: Focus
+  m_Name: EnterZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1076,12 +1079,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616547200}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20, y: 4, z: 40}
+  m_LocalPosition: {x: 36.3, y: 1.72, z: 40.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 1543344693}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1616547202
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616547200}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 5, z: 6}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1657583787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1362,5 +1378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc573e68b36153a498af7626329563a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charSpeed: 4
-  power: 1
+  monster: {fileID: 988096496}
+  Speed: 4
+  Power: 1

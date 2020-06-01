@@ -7,6 +7,7 @@ TagManager:
   - MonsterAttack
   - Monster
   - TraceRange
+  - ExitZone
   layers:
   - Default
   - TransparentFX

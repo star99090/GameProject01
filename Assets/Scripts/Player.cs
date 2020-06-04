@@ -31,6 +31,10 @@ public class Player : MonoBehaviour
         {
             anim.SetTrigger("attackTrigger");
         }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            anim.SetTrigger("skillTrigger");
+        }
     }
 
     void OnCollisionEnter(Collision collision) // 충돌 시 생기는 이벤트
@@ -69,7 +73,7 @@ public class Player : MonoBehaviour
             {
                 transform.Translate(new Vector3(h * 0.5f, 0, v) * Speed * Time.deltaTime, Space.Self);
             }
-        anim.SetBool("isRunning", true);
+            anim.SetBool("isRunning", true);
         }
     }
 }

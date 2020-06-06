@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public float Speed;
     public int Power;
     bool isJump;
-    
+
     void Awake()
     {
         isJump = false;
@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.name == "Field")
             isJump = false;
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "EnterZone")
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
         }
 
     }
+
     void FixedUpdate()
     {
         float h = Input.GetAxis("Horizontal");
@@ -77,3 +79,4 @@ public class Player : MonoBehaviour
         }
     }
 }
+

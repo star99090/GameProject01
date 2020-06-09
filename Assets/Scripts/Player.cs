@@ -11,10 +11,12 @@ public class Player : MonoBehaviour
     public float Speed;
     public int Power;
     bool isJump;
+    bool isAttack;
 
     void Awake()
     {
         isJump = false;
+        isAttack = false;
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
     }
@@ -27,13 +29,16 @@ public class Player : MonoBehaviour
             isJump = true;
             rigid.AddForce(Vector3.up * 5, ForceMode.Impulse);
         }
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             anim.SetTrigger("attackTrigger");
+            isAttack = true;
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
             anim.SetTrigger("skillTrigger");
+            isAttack = true;
         }
     }
 
@@ -50,7 +55,6 @@ public class Player : MonoBehaviour
             monster.PlaySound("Idle");
             other.gameObject.SetActive(false);
         }
-
     }
 
     void FixedUpdate()

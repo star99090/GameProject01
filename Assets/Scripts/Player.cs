@@ -11,12 +11,10 @@ public class Player : MonoBehaviour
     public float Speed;
     public int Power;
     bool isJump;
-    bool isAttack;
 
     void Awake()
     {
         isJump = false;
-        isAttack = false;
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
     }
@@ -27,18 +25,17 @@ public class Player : MonoBehaviour
         {
             anim.SetTrigger("jumpTrigger");
             isJump = true;
-            rigid.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            rigid.AddForce(Vector3.up * 6, ForceMode.Impulse);
         }
-
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            anim.SetTrigger("attackTrigger");
-            isAttack = true;
+            anim.SetBool("isAttack", true);
+            Invoke("MotionDelay", 0.05f);
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            anim.SetTrigger("skillTrigger");
-            isAttack = true;
+            anim.SetBool("isSkill", true);
+            Invoke("MotionDelay", 0.05f);
         }
     }
 
@@ -47,7 +44,11 @@ public class Player : MonoBehaviour
         if (collision.gameObject.name == "Field")
             isJump = false;
     }
-
+    void MotionDelay()
+    {
+        anim.SetBool("isAttack", false);
+        anim.SetBool("isSkill", false);
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "EnterZone")

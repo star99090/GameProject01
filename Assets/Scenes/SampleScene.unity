@@ -777,7 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5edbb80d036f1524ea3f5eff1eb3ec4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 3.75
+  rotationSpeed: 3.5
   Player: {fileID: 2042691104}
 --- !u!1 &988096491 stripped
 GameObject:
